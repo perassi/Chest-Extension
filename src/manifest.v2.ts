@@ -1,8 +1,8 @@
 export default {
-  manifest_version: 3,
+  manifest_version: 2,
   name: 'Chestr - Universal Shopping Wishlist',
   background: {
-    service_worker: 'serviceWorker.ts',
+    scripts: ['serviceWorker.ts'],
   },
   content_scripts: [
     {
@@ -15,15 +15,7 @@ export default {
       ]
     },
   ],
-  action: {
+  browser_action: {
     default_popup: 'pages/popup/index.html',
-  },
-  host_permissions: [
-    'https://*/*',
-    'http://*/*',
-  ],
-  permissions: [
-    'scripting',
-    'activeTab'
-  ],
-} as chrome.runtime.ManifestV3
+  }
+} as chrome.runtime.ManifestV2

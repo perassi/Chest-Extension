@@ -1,6 +1,7 @@
+// import preset from "@chestrapp/presets";
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { initializeAuth } from "firebase/auth";
+// import { initializeApp } from "firebase/app";
+// import { initializeAuth } from "firebase/auth";
 // import { initializeAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -19,13 +20,61 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = initializeAuth(app);
+// const app = initializeApp(firebaseConfig);
+// const auth = initializeAuth(app);
 // const analytics = initializeAnalytics(app, {
 //     config: {
 //         send_page_view: false,
 //     },
-    
+
 // });
 
-console.log('ServiceWorker script', app, auth)
+console.log('ServiceWorker script')
+
+// chrome.action.onClicked.addListener(
+//     (tab: chrome.tabs.Tab) => {
+//         chrome.scripting.executeScript({
+//             target: {
+//                 tabId: tab.id!
+//             },
+//             func: () => window.__CHESTR__
+//         },
+//             ([{ result }]: any) => {
+//                 console.log(result)
+//                 // chrome.action.setPopup({})
+//             }
+//         )
+//     }
+// )
+
+chrome.action.disable()
+
+chrome.tabs.onUpdated.addListener(
+    (tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
+        if (changeInfo.status === 'complete') {
+            chrome.scripting.executeScript({
+                target: {
+                    tabId
+                },
+                files: ['preset.js'],
+            })
+                .then(
+                    ([{ result }]: any) => {
+                        if (result?.product) {
+                            chrome.action.enable(tabId)
+                            chrome.action.setBadgeText({
+                                text: 'Y',
+                                tabId
+                            })
+                        } else {
+                            chrome.action.disable(tabId)
+                            chrome.action.setBadgeText({
+                                text: 'N',
+                                tabId
+                            })
+                        }
+                    }
+                ).catch(() => undefined)
+        }
+    }
+)
