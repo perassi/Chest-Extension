@@ -1,8 +1,29 @@
 import React from 'react'
+import { storage } from '@extend-chrome/storage'
+import { initializeApp } from 'firebase/app'
+import {
+  connectAuthEmulator,
+  getAuth,
+  signInWithCustomToken,
+} from 'firebase/auth'
+import { firebaseConfig } from '../../firebaseConfig'
+
+initializeApp(firebaseConfig)
+// connectAuthEmulator(getAuth(), 'http://localhost:9099', {
+//   disableWarnings: true,
+// })
 
 const App = (): JSX.Element => {
   const [data, setData] = React.useState(undefined)
+  const [token, setToken] = React.useState<any>(undefined)
+  const [userCredential, setUserCredential] = React.useState<any>(undefined)
   React.useEffect(() => {
+    storage.local.get('token').then(({ token }) => {
+      setToken(token)
+      signInWithCustomToken(getAuth(), token).then((userCredential) => {
+        setUserCredential(userCredential)
+      })
+    })
     chrome.tabs.query({ active: true, currentWindow: true }).then(([tab]) =>
       chrome.scripting.executeScript(
         {
@@ -17,11 +38,13 @@ const App = (): JSX.Element => {
         },
       ),
     )
-  }, [setData])
+  }, [])
   return (
     <div>
       <h1>Popup Page</h1>
       <p>If you are seeing this, React is working!</p>
+      <pre>{JSON.stringify(token, null, 2)}</pre>
+      <pre>{JSON.stringify(userCredential, null, 2)}</pre>
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   )
