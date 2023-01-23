@@ -1,0 +1,35 @@
+.folder-dropdown-container {
+  position: relative;
+
+  .folder-dropdown {
+    width: 100%;
+    padding: 9px 12px;
+    box-sizing: border-box;
+
+    border: 0.885677px solid #d0d5dd;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    border-radius: 7.08542px;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  .folders-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    border: 0.885677px solid #eaecf0;
+    box-shadow: 0px 10.6281px 14.1708px -3.54271px rgba(16, 24, 40, 0.08),
+      0px 3.54271px 5.31406px -1.77135px rgba(16, 24, 40, 0.03);
+    border-radius: 7.08542px;
+
+    .folders-list-item {
+        padding: 14px;
+    }
+  }
+}

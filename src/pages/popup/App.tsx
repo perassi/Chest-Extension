@@ -1,8 +1,9 @@
 import React from 'react'
 
 import { Header } from '../../components/layout/Header/Header'
+import { FolderDropdown } from '../../components/common/FolderDropdown/FolderDropdown'
 
-import './App.css';
+import './App.css'
 
 const App = (): JSX.Element => {
   // const [data, setData] = React.useState(undefined)
@@ -25,8 +26,9 @@ const App = (): JSX.Element => {
   // }, [setData])
 
   return (
-    <div className='wrapper'>
+    <div className="wrapper">
       <Header />
+      <FolderDropdown />
     </div>
   )
 }
