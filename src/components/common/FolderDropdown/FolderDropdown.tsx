@@ -34,7 +34,7 @@ const foldersList = [
     ],
   },
   {
-    name: 'epmty folder',
+    name: 'empty folder',
     children: [],
   },
 ]
