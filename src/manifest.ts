@@ -24,6 +24,14 @@ export default {
   ],
   permissions: [
     'scripting',
-    'activeTab'
+    'activeTab',
+    'storage'
   ],
+  externally_connectable: {
+    matches: [
+      'https://chestr.com/*',
+      'https://chestr.app/*',
+      '\*://localhost/\*',
+    ]
+  },
 } as chrome.runtime.ManifestV3
