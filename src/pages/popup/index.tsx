@@ -1,9 +1,15 @@
-import React from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-console.log('popup script')
+import App from './App';
+import './index.css';
 
-const root = createRoot(document.querySelector('#root')!)
+// const root = createRoot(document.querySelector('#root')!)
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root'),
+)
 
-root.render(<App />)
+// root.render(<App />)

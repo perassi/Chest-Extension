@@ -47,34 +47,34 @@ console.log('ServiceWorker script')
 //     }
 // )
 
-chrome.action.disable()
+// chrome.action.disable()
 
 chrome.tabs.onUpdated.addListener(
     (tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
-        if (changeInfo.status === 'complete') {
-            chrome.scripting.executeScript({
-                target: {
-                    tabId
-                },
-                files: ['preset.js'],
-            })
-                .then(
-                    ([{ result }]: any) => {
-                        if (result?.product) {
-                            chrome.action.enable(tabId)
-                            chrome.action.setBadgeText({
-                                text: 'Y',
-                                tabId
-                            })
-                        } else {
-                            chrome.action.disable(tabId)
-                            chrome.action.setBadgeText({
-                                text: 'N',
-                                tabId
-                            })
-                        }
-                    }
-                ).catch(() => undefined)
-        }
+        // if (changeInfo.status === 'complete') {
+        //     chrome.scripting.executeScript({
+        //         target: {
+        //             tabId
+        //         },
+        //         files: ['preset.js'],
+        //     })
+        //         .then(
+        //             ([{ result }]: any) => {
+        //                 if (result?.product) {
+        //                     chrome.action.enable(tabId)
+        //                     chrome.action.setBadgeText({
+        //                         text: 'Y',
+        //                         tabId
+        //                     })
+        //                 } else {
+        //                     chrome.action.disable(tabId)
+        //                     chrome.action.setBadgeText({
+        //                         text: 'N',
+        //                         tabId
+        //                     })
+        //                 }
+        //             }
+        //         ).catch(() => undefined)
+        // }
     }
 )
