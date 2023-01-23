@@ -17,6 +17,10 @@ import { Header } from '../../components/layout/Header/Header'
 import { FolderDropdown } from '../../components/common/FolderDropdown/FolderDropdown'
 
 import './App.css'
+import { ProductInfo } from '../../components/layout/ProductInfo/ProductInfo'
+import { Button } from '../../components/common/Button/Button'
+import { LinkExternalIcon } from '../../components/icons/LinkExternalIcon'
+import { Footer } from '../../components/layout/Footer/Footer'
 
 const App = (): JSX.Element => {
   const [data, setData] = React.useState(undefined)
@@ -44,15 +48,34 @@ const App = (): JSX.Element => {
       ),
     )
   }, [])
+
   return (
     <div>
       <Header />
-      {/* <FolderDropdown /> */}
-      <h1>Popup Page</h1>
-      <p>If you are seeing this, React is working!</p>
-      <pre>{JSON.stringify(token, null, 2)}</pre>
+
+      <FolderDropdown />
+
+      <ProductInfo />
+
+      <textarea
+        name="product-notes"
+        id="product-notes"
+        rows={2}
+        placeholder={'Notes: e.g size, color, etc...'}
+      ></textarea>
+
+      <Button>
+        <div className="btn-content-chest">
+          <p className="btn-content-chest-text">Go to chest</p>
+          <LinkExternalIcon />
+        </div>
+      </Button>
+
+      <Footer />
+
+      {/* <pre>{JSON.stringify(token, null, 2)}</pre>
       <pre>{JSON.stringify(userCredential, null, 2)}</pre>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
   )
 }

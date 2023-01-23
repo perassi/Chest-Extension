@@ -48,48 +48,50 @@ console.log('ServiceWorker script')
 //     }
 // )
 
-// chrome.action.disable()
+chrome.action.disable()
 
 chrome.tabs.onUpdated.addListener(
-    (tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) => {
-        // if (changeInfo.status === 'complete') {
-        //     chrome.scripting.executeScript({
-        //         target: {
-        //             tabId
-        //         },
-        //         files: ['preset.js'],
-        //     })
-        //         .then(
-        //             ([{ result }]: any) => {
-        //                 if (result?.product) {
-        //                     chrome.action.enable(tabId)
-        //                     chrome.action.setBadgeText({
-        //                         text: 'Y',
-        //                         tabId
-        //                     })
-        //                 } else {
-        //                     chrome.action.disable(tabId)
-        //                     chrome.action.setBadgeText({
-        //                         text: 'N',
-        //                         tabId
-        //                     })
-        //                 }
-        //             }
-        //         ).catch(() => undefined)
-        // }
+  (
+    tabId: number,
+    changeInfo: chrome.tabs.TabChangeInfo,
+    tab: chrome.tabs.Tab,
+  ) => {
+    if (changeInfo.status === 'complete') {
+      chrome.scripting
+        .executeScript({
+          target: {
+            tabId,
+          },
+          files: ['preset.js'],
+        })
+        .then(([{ result }]: any) => {
+          if (result?.product) {
+            chrome.action.enable(tabId)
+            chrome.action.setBadgeText({
+              text: 'Y',
+              tabId,
+            })
+          } else {
+            chrome.action.disable(tabId)
+            chrome.action.setBadgeText({
+              text: 'N',
+              tabId,
+            })
+          }
+        })
+        .catch(() => undefined)
     }
+  },
 )
 
 chrome.runtime.onMessageExternal.addListener(
-    (request, sender, sendResponse) => {
-        storage.local.set(request)
-    }
-);
+  (request, sender, sendResponse) => {
+    storage.local.set(request)
+  },
+)
 
-chrome.runtime.onInstalled.addListener(details => {
-    if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
-        chrome.tabs.create(
-            { url: "https://chestr.com/sign-up" },
-        )
-    }
-});
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+    chrome.tabs.create({ url: 'https://chestr.com/sign-up' })
+  }
+})
