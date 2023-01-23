@@ -2,7 +2,7 @@ import React from 'react'
 import { storage } from '@extend-chrome/storage'
 import { initializeApp } from 'firebase/app'
 import {
-  connectAuthEmulator,
+  // connectAuthEmulator,
   getAuth,
   signInWithCustomToken,
 } from 'firebase/auth'

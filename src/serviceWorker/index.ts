@@ -85,3 +85,11 @@ chrome.runtime.onMessageExternal.addListener(
         storage.local.set(request)
     }
 );
+
+chrome.runtime.onInstalled.addListener(details => {
+    if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+        chrome.tabs.create(
+            { url: "https://chestr.com/sign-up" },
+        )
+    }
+});
