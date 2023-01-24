@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 
-import { FolderIcon } from '../../icons/FolderIcon'
 import { PlusIcon } from '../../icons/PlusIcon'
 import { ArrowSelectIcon } from '../../icons/ArrowSelectIcon'
-
-import './FolderDropdown.scss'
 import { FolderDropdownItem } from './FolderDropdownItem'
+import { NewFolderDialog } from '../../layout/NewFolderDialog/NewFolderDialog'
+
+import { UserCredential } from 'firebase/auth'
+import './FolderDropdown.scss'
 
 const foldersList = [
   {
@@ -39,9 +40,14 @@ const foldersList = [
   },
 ]
 
-export const FolderDropdown = () => {
-  const [showDropdown, setShowDropdown] = useState<boolean>(false)
+interface FolderDropdownProps {
+  userCredential: UserCredential
+}
+
+export const FolderDropdown: FC<FolderDropdownProps> = ({ userCredential }) => {
   const [folderName, setFodlerName] = useState<string>('')
+  const [showDropdown, setShowDropdown] = useState<boolean>(false)
+  const [showNewFolderDialog, setShowNewFolderDialog] = useState<boolean>(false)
 
   return (
     <>
@@ -62,22 +68,33 @@ export const FolderDropdown = () => {
           </div>
         </div>
 
-        <ul className={`folders-list ${showDropdown && 'active'}`}>
-          <li className="folders-list-item">
-            <div className="folders-list-item-content">
-              <div className="folder-list-left-icon">
-                <PlusIcon />
-              </div>
-              <p className="folder-name text-color-primary-700">New Folder</p>
-            </div>
-          </li>
-          {foldersList.map((parentFolder, index) => (
-            <FolderDropdownItem
-              key={`Parent folder ${index}`}
-              parentFolder={parentFolder}
-            />
-          ))}
-        </ul>
+        {showNewFolderDialog ? (
+          <NewFolderDialog onReturn={() => setShowNewFolderDialog(false)} />
+        ) : (
+          <>
+            <ul className={`folders-list ${showDropdown && 'active'}`}>
+              <li
+                className="folders-list-item"
+                onClick={() => setShowNewFolderDialog(true)}
+              >
+                <div className="folders-list-item-content">
+                  <div className="folder-list-left-icon">
+                    <PlusIcon />
+                  </div>
+                  <p className="folder-name text-color-primary-700">
+                    New Folder
+                  </p>
+                </div>
+              </li>
+              {foldersList.map((parentFolder, index) => (
+                <FolderDropdownItem
+                  key={`Parent folder ${index}`}
+                  parentFolder={parentFolder}
+                />
+              ))}
+            </ul>
+          </>
+        )}
       </div>
     </>
   )

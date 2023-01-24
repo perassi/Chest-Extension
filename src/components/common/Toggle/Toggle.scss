@@ -1,0 +1,83 @@
+.toggle-label {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  cursor: pointer;
+
+  input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .toggle-track {
+    width: 2.25rem;
+    height: 1.25rem;
+    border-radius: 9999px;
+
+    position: relative;
+    background-color: rgb(229 231 235);
+
+    // &:checked {
+    //   ::after {
+    //     transform: translateX(100%);
+    //     border-color: white;
+    //   }
+    // }
+
+    // ::after {
+    //   height: 1rem;
+    //   width: 1rem;
+
+    //   position: absolute;
+    //   top: 2px;
+    //   left: 2px;
+
+    //   background-color: white;
+
+    //   border-width: 1px;
+    //   border-color: rgb(209 213 219);
+    //   border-radius: 9999px;
+
+    //   // content: '';
+
+    //   transition: all;
+    // }
+  }
+}
+
+.toggle-indicator {
+  width: 1rem;
+  height: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: white;
+  border-radius: 100%;
+
+  position: absolute;
+  left: 2px;
+  bottom: 2px;
+
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.toggle-label input:checked {
+  & + .toggle-track .toggle-indicator {
+    transform: translateX(100%);
+  }
+
+  & + .toggle-track {
+    background-color: #CC0174;
+  }
+}

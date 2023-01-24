@@ -5,10 +5,10 @@ import {
   // connectAuthEmulator,
   getAuth,
   signInWithCustomToken,
+  UserCredential,
 } from 'firebase/auth'
 import { firebaseConfig } from '../../firebaseConfig'
 
-initializeApp(firebaseConfig)
 // connectAuthEmulator(getAuth(), 'http://localhost:9099', {
 //   disableWarnings: true,
 // })
@@ -16,23 +16,31 @@ initializeApp(firebaseConfig)
 import { Header } from '../../components/layout/Header/Header'
 import { FolderDropdown } from '../../components/common/FolderDropdown/FolderDropdown'
 
-import './App.css'
 import { ProductInfo } from '../../components/layout/ProductInfo/ProductInfo'
 import { Button } from '../../components/common/Button/Button'
 import { LinkExternalIcon } from '../../components/icons/LinkExternalIcon'
 import { Footer } from '../../components/layout/Footer/Footer'
+import './App.css'
+
+initializeApp(firebaseConfig)
 
 const App = (): JSX.Element => {
   const [data, setData] = React.useState(undefined)
   const [token, setToken] = React.useState<any>(undefined)
-  const [userCredential, setUserCredential] = React.useState<any>(undefined)
+  const [userCredential, setUserCredential] = React.useState<UserCredential>()
+
+  console.log('userCredential', userCredential)
+  console.log('data', data)
+
   React.useEffect(() => {
     storage.local.get('token').then(({ token }) => {
       setToken(token)
+
       signInWithCustomToken(getAuth(), token).then((userCredential) => {
         setUserCredential(userCredential)
       })
     })
+
     chrome.tabs.query({ active: true, currentWindow: true }).then(([tab]) =>
       chrome.scripting.executeScript(
         {
@@ -50,10 +58,10 @@ const App = (): JSX.Element => {
   }, [])
 
   return (
-    <div>
+    <>
       <Header />
 
-      <FolderDropdown />
+      <FolderDropdown userCredential={userCredential!} />
 
       <ProductInfo />
 
@@ -73,10 +81,10 @@ const App = (): JSX.Element => {
 
       <Footer />
 
-      {/* <pre>{JSON.stringify(token, null, 2)}</pre>
+      <pre>{JSON.stringify(token, null, 2)}</pre>
       <pre>{JSON.stringify(userCredential, null, 2)}</pre>
-      <pre>{JSON.stringify(data, null, 2)}</pre> */}
-    </div>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </>
   )
 }
 
