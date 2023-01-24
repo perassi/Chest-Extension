@@ -68,7 +68,7 @@ export const FolderDropdown: FC<FolderDropdownProps> = ({ userCredential }) => {
           </div>
         </div>
 
-        {showNewFolderDialog ? (
+        {showNewFolderDialog && showDropdown ? (
           <NewFolderDialog onReturn={() => setShowNewFolderDialog(false)} />
         ) : (
           <>
