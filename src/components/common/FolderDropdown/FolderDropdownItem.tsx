@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react'
+import { FolderType } from '../../../@types/folder.types'
 
 import { ArrowSelectIcon } from '../../icons/ArrowSelectIcon'
 import { FolderIcon } from '../../icons/FolderIcon'
 import { PlusIcon } from '../../icons/PlusIcon'
 
 interface FolderDropdownItemProps {
-  parentFolder: any
+  parentFolder: FolderType
 }
 
 export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
@@ -14,21 +15,34 @@ export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
   const [showChildren, setShowChildren] = useState<boolean>(false)
 
   return (
-    <li className="folders-list-item">
-      <div
-        className="folders-list-item-content"
-        onClick={() => setShowChildren((prev) => !prev)}
+    <>
+      <li
+        className="folders-list-item"
+        onClick={() =>
+          parentFolder.children.length > 0 && setShowChildren((prev) => !prev)
+        }
       >
-        {parentFolder.children.length > 0 && (
-          <div className={`folder-list-left-icon ${showChildren && 'show'}`}>
-            <ArrowSelectIcon />
-          </div>
-        )}
+        <div className="folders-list-item-content">
+          {parentFolder.children.length > 0 && (
+            <div
+              className={`folder-list-left-icon ${showChildren && 'active'}`}
+            >
+              <ArrowSelectIcon />
+            </div>
+          )}
 
-        <FolderIcon />
-        <p className="folder-name">{parentFolder.name}</p>
-      </div>
-      <PlusIcon />
-    </li>
+          <FolderIcon />
+          <p className="folder-name">{parentFolder.name}</p>
+        </div>
+        <PlusIcon />
+      </li>
+      {showChildren && (
+        <li className="folder-list-children">
+          {parentFolder.children.map((childFolder) => (
+            <FolderDropdownItem parentFolder={childFolder} />
+          ))}
+        </li>
+      )}
+    </>
   )
 }

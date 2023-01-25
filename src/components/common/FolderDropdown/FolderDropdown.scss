@@ -87,7 +87,7 @@ $left-margin-width: calc($gap-btwn-name-icon + $width-left-icon);
       z-index: 2;
 
       &:hover {
-        background-color: #FFF4FA;
+        background-color: #fff4fa;
       }
 
       .folders-list-item-content {
@@ -114,5 +114,9 @@ $left-margin-width: calc($gap-btwn-name-icon + $width-left-icon);
         }
       }
     }
+  }
+
+  .folder-list-children {
+    padding-left: 27px;
   }
 }
