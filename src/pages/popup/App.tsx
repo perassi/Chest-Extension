@@ -1,38 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { storage } from '@extend-chrome/storage'
-import { initializeApp } from 'firebase/app'
+
 import {
-  // connectAuthEmulator,
   getAuth,
   signInWithCustomToken,
   UserCredential,
 } from 'firebase/auth'
-import { firebaseConfig } from '../../firebaseConfig'
 
-// connectAuthEmulator(getAuth(), 'http://localhost:9099', {
-//   disableWarnings: true,
-// })
+import { Layout } from '../../components/layout/layout'
+import { FirebaseContextProvider } from '../../contexts/firebaseContext'
 
-import { Header } from '../../components/layout/Header/Header'
-import { FolderDropdown } from '../../components/common/FolderDropdown/FolderDropdown'
-
-import { ProductInfo } from '../../components/layout/ProductInfo/ProductInfo'
-import { Button } from '../../components/common/Button/Button'
-import { LinkExternalIcon } from '../../components/icons/LinkExternalIcon'
-import { Footer } from '../../components/layout/Footer/Footer'
 import './App.css'
-
-initializeApp(firebaseConfig)
 
 const App = (): JSX.Element => {
   const [data, setData] = React.useState(undefined)
   const [token, setToken] = React.useState<any>(undefined)
   const [userCredential, setUserCredential] = React.useState<UserCredential>()
 
+  console.log('token', token);
   console.log('userCredential', userCredential)
   console.log('data', data)
 
-  React.useEffect(() => {
+  useEffect(() => {
     storage.local.get('token').then(({ token }) => {
       setToken(token)
 
@@ -58,33 +47,12 @@ const App = (): JSX.Element => {
   }, [])
 
   return (
-    <>
-      <Header />
-
-      <FolderDropdown userCredential={userCredential!} />
-
-      <ProductInfo />
-
-      <textarea
-        name="product-notes"
-        id="product-notes"
-        rows={2}
-        placeholder={'Notes: e.g size, color, etc...'}
-      ></textarea>
-
-      <Button>
-        <div className="btn-content-chest">
-          <p className="btn-content-chest-text">Go to chest</p>
-          <LinkExternalIcon />
-        </div>
-      </Button>
-
-      <Footer />
-
+    <FirebaseContextProvider>
+      <Layout />
       <pre>{JSON.stringify(token, null, 2)}</pre>
       <pre>{JSON.stringify(userCredential, null, 2)}</pre>
       <pre>{JSON.stringify(data, null, 2)}</pre>
-    </>
+    </FirebaseContextProvider>
   )
 }
 

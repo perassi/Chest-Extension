@@ -5,46 +5,14 @@ import { ArrowSelectIcon } from '../../icons/ArrowSelectIcon'
 import { FolderDropdownItem } from './FolderDropdownItem'
 import { NewFolderDialog } from '../../layout/NewFolderDialog/NewFolderDialog'
 
-import { UserCredential } from 'firebase/auth'
+import { FolderType } from '../../../@types/folder.types'
 import './FolderDropdown.scss'
 
-const foldersList = [
-  {
-    name: 'Books',
-    children: [
-      {
-        name: '1',
-      },
-      {
-        name: '2',
-      },
-      {
-        name: '3',
-      },
-    ],
-  },
-  {
-    name: 'My',
-    children: [
-      {
-        name: '1123123',
-      },
-      {
-        name: '213123',
-      },
-    ],
-  },
-  {
-    name: 'empty folder',
-    children: [],
-  },
-]
-
 interface FolderDropdownProps {
-  userCredential: UserCredential
+  folders: FolderType[]
 }
 
-export const FolderDropdown: FC<FolderDropdownProps> = ({ userCredential }) => {
+export const FolderDropdown: FC<FolderDropdownProps> = ({ folders }) => {
   const [folderName, setFodlerName] = useState<string>('')
   const [showDropdown, setShowDropdown] = useState<boolean>(false)
   const [showNewFolderDialog, setShowNewFolderDialog] = useState<boolean>(false)
@@ -86,7 +54,7 @@ export const FolderDropdown: FC<FolderDropdownProps> = ({ userCredential }) => {
                   </p>
                 </div>
               </li>
-              {foldersList.map((parentFolder, index) => (
+              {folders.map((parentFolder, index) => (
                 <FolderDropdownItem
                   key={`Parent folder ${index}`}
                   parentFolder={parentFolder}
