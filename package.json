@@ -38,9 +38,9 @@
     "prettier": "^2.8.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rollup-plugin-empty-dir": "^1.0.5",
     "rollup-plugin-styles": "^4.0.0",
     "sass": "^1.57.1",
-    "rollup-plugin-empty-dir": "^1.0.5",
     "webextension-polyfill": "^0.10.0"
   },
   "devDependencies": {
@@ -56,6 +56,7 @@
     "eslint-plugin-react": "^7.32.0",
     "rollup": "^3.10.0",
     "rollup-plugin-chrome-extension": "^3.6.10",
+    "rollup-plugin-typescript2": "^0.34.1",
     "rollup-plugin-zip": "^1.0.3",
     "tslib": "^2.4.1",
     "typescript": "^4.9.4"

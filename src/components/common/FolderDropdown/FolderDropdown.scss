@@ -97,6 +97,7 @@ $left-margin-width: calc($gap-btwn-name-icon + $width-left-icon);
 
         .folder-name {
           margin-left: $gap-btwn-name-icon;
+          margin-right: $gap-btwn-name-icon;
         }
 
         .folder-list-left-icon {
@@ -116,7 +117,7 @@ $left-margin-width: calc($gap-btwn-name-icon + $width-left-icon);
     }
   }
 
-  .folder-list-children {
+  .folders-list-children {
     padding-left: 27px;
   }
 }

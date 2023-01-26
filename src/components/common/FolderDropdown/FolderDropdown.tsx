@@ -5,8 +5,8 @@ import { ArrowSelectIcon } from '../../icons/ArrowSelectIcon'
 import { FolderDropdownItem } from './FolderDropdownItem'
 import { NewFolderDialog } from '../../layout/NewFolderDialog/NewFolderDialog'
 
-import { FolderType } from '../../../@types/folder.types'
 import './FolderDropdown.scss'
+import { FolderType } from '../../../@types/global'
 
 interface FolderDropdownProps {
   folders: FolderType[]

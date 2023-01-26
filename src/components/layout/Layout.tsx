@@ -9,8 +9,7 @@ import { Button } from '../common/Button/Button'
 import { ProductInfo } from './ProductInfo/ProductInfo'
 import { FolderDropdown } from '../common/FolderDropdown/FolderDropdown'
 import { LinkExternalIcon } from '../icons/LinkExternalIcon'
-
-import { FolderType } from '../../@types/folder.types'
+import { FolderType } from '../../@types/global'
 
 export const Layout = () => {
   const db = useFirestore()

@@ -1,8 +1,9 @@
 import React, { FC, useState } from 'react'
-import { FolderType } from '../../../@types/folder.types'
+import { FolderType } from '../../../@types/global'
 
 import { ArrowSelectIcon } from '../../icons/ArrowSelectIcon'
 import { FolderIcon } from '../../icons/FolderIcon'
+import { LockIcon } from '../../icons/LockIcon'
 import { PlusIcon } from '../../icons/PlusIcon'
 
 interface FolderDropdownItemProps {
@@ -32,12 +33,16 @@ export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
           )}
 
           <FolderIcon />
+
           <p className="folder-name">{parentFolder.name}</p>
+
+          <LockIcon />
         </div>
         <PlusIcon />
       </li>
+
       {showChildren && (
-        <li className="folder-list-children">
+        <li className="folders-list-children">
           {parentFolder.children.map((childFolder) => (
             <FolderDropdownItem parentFolder={childFolder} />
           ))}
