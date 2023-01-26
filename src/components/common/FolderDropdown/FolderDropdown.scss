@@ -98,6 +98,10 @@ $left-margin-width: calc($gap-btwn-name-icon + $width-left-icon);
         .folder-name {
           margin-left: $gap-btwn-name-icon;
           margin-right: $gap-btwn-name-icon;
+
+          .folder-name-parent {
+            color: #98a2b3;
+          }
         }
 
         .folder-list-left-icon {
@@ -119,5 +123,19 @@ $left-margin-width: calc($gap-btwn-name-icon + $width-left-icon);
 
   .folders-list-children {
     padding-left: 27px;
+  }
+
+  .new-subfolder-input {
+    width: 79px;
+    height: 30px;
+
+    font-size: 14px;
+
+    padding: 10px; 
+    margin-right: 9.5px;
+
+    &::placeholder {
+      color: #98a2b3;
+    }
   }
 }

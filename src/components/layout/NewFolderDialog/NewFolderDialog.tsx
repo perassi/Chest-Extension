@@ -24,7 +24,7 @@ export const NewFolderDialog: FC<NewFolderDialog> = ({ onReturn }) => {
           <PencilLineIcon />
         </div>
         <input
-          className="new-folder-input"
+          className="input new-folder-input"
           type="text"
           placeholder="Folder title like “books” etc."
         />

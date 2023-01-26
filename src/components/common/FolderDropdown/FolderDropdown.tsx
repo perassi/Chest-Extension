@@ -54,10 +54,12 @@ export const FolderDropdown: FC<FolderDropdownProps> = ({ folders }) => {
                   </p>
                 </div>
               </li>
+
               {folders.map((parentFolder, index) => (
                 <FolderDropdownItem
                   key={`Parent folder ${index}`}
-                  parentFolder={parentFolder}
+                  folder={parentFolder}
+                  addNewFolder={true}
                 />
               ))}
             </ul>

@@ -1,30 +1,37 @@
 import React, { FC, useState } from 'react'
 import { FolderType } from '../../../@types/global'
 
+import { FolderDropdownNewSubFolder } from './FolderDropdownNewSubFolder'
+
 import { ArrowSelectIcon } from '../../icons/ArrowSelectIcon'
 import { FolderIcon } from '../../icons/FolderIcon'
 import { LockIcon } from '../../icons/LockIcon'
 import { PlusIcon } from '../../icons/PlusIcon'
 
 interface FolderDropdownItemProps {
-  parentFolder: FolderType
+  folder: FolderType
+  addNewFolder: boolean
+  parentFolderName?: string
 }
 
 export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
-  parentFolder,
+  folder,
+  addNewFolder,
+  parentFolderName,
 }) => {
   const [showChildren, setShowChildren] = useState<boolean>(false)
+  const [showAddNewSubFodler, setShowAddNewSubFodler] = useState<boolean>(false)
 
   return (
     <>
-      <li
-        className="folders-list-item"
-        onClick={() =>
-          parentFolder.children.length > 0 && setShowChildren((prev) => !prev)
-        }
-      >
-        <div className="folders-list-item-content">
-          {parentFolder.children.length > 0 && (
+      <li className="folders-list-item">
+        <div
+          className="folders-list-item-content"
+          onClick={() =>
+            folder.children.length > 0 && setShowChildren((prev) => !prev)
+          }
+        >
+          {folder.children.length > 0 && (
             <div
               className={`folder-list-left-icon ${showChildren && 'active'}`}
             >
@@ -34,19 +41,49 @@ export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
 
           <FolderIcon />
 
-          <p className="folder-name">{parentFolder.name}</p>
+          <p className="folder-name">
+            {parentFolderName && (
+              <span className="folder-name-parent">{parentFolderName}/ </span>
+            )}
 
-          {parentFolder.private && <LockIcon height={13} width={13} />}
+            {folder.name}
+          </p>
+
+          {folder.private && <LockIcon height={13} width={13} />}
         </div>
-        <PlusIcon />
+
+        {addNewFolder && (
+          <div
+            onClick={() => {
+              setShowChildren(true)
+              setShowAddNewSubFodler(true)
+            }}
+          >
+            <PlusIcon />
+          </div>
+        )}
       </li>
 
       {showChildren && (
-        <li className="folders-list-children">
-          {parentFolder.children.map((childFolder) => (
-            <FolderDropdownItem parentFolder={childFolder} />
-          ))}
-        </li>
+        <>
+          <div className="folders-list-children">
+            {showAddNewSubFodler && (
+              <FolderDropdownNewSubFolder
+                isPrivate={folder.private}
+                parentFolderName={folder.name}
+              />
+            )}
+
+            {folder.children.map((childFolder) => (
+              <FolderDropdownItem
+                key={`Child folder of "${folder.name}" - ${childFolder.name}`}
+                folder={childFolder}
+                addNewFolder={false}
+                parentFolderName={folder.name}
+              />
+            ))}
+          </div>
+        </>
       )}
     </>
   )
