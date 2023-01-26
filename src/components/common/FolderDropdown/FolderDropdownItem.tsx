@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { FolderType } from '../../../@types/global'
 
 import { FolderDropdownNewSubFolder } from './FolderDropdownNewSubFolder'
@@ -21,6 +21,10 @@ export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
 }) => {
   const [showChildren, setShowChildren] = useState<boolean>(false)
   const [showAddNewSubFodler, setShowAddNewSubFodler] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (!showChildren && showAddNewSubFodler) setShowAddNewSubFodler(false)
+  }, [showChildren])
 
   return (
     <>
@@ -49,7 +53,7 @@ export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
             {folder.name}
           </p>
 
-          {folder.private && <LockIcon height={13} width={13} />}
+          {folder.visibility === 1 && <LockIcon height={13} width={13} />}
         </div>
 
         {addNewFolder && (

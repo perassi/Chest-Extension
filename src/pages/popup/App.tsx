@@ -49,9 +49,9 @@ const App = (): JSX.Element => {
   return (
     <FirebaseContextProvider>
       <Layout />
-      <pre>{JSON.stringify(token, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(token, null, 2)}</pre>
       <pre>{JSON.stringify(userCredential, null, 2)}</pre>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </FirebaseContextProvider>
   )
 }

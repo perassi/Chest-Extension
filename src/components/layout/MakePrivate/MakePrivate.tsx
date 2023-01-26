@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
+import React, { FC } from 'react'
 import { Toggle } from '../../common/Toggle/Toggle'
 import { LockIcon } from '../../icons/LockIcon'
 
 import './MakePrivate.scss'
 
-export const MakePrivate = () => {
-  const [isPrivate, setIsPrivate] = useState<boolean>(false)
+interface MakePrivateProps {
+  isPrivate: boolean
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
 
+export const MakePrivate: FC<MakePrivateProps> = ({ isPrivate, onChange }) => {
   return (
     <div className="privacy-container">
       <LockIcon />
 
-      <p className='privacy-text'>Make private</p>
+      <p className="privacy-text">Make private</p>
 
-      <Toggle
-        value={isPrivate}
-        onChange={(e) => setIsPrivate(e.currentTarget.checked)}
-      />
+      <Toggle value={isPrivate} onChange={onChange} />
     </div>
   )
 }

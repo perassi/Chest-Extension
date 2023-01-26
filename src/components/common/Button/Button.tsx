@@ -7,6 +7,7 @@ interface ButtonProps {
   backgroundColor?: string
   width?: string
   padding?: string
+  onClick?: () => void
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -14,6 +15,7 @@ export const Button: FC<ButtonProps> = ({
   backgroundColor = '#E0007F',
   width = '100%',
   padding = '10.5px',
+  onClick,
 }) => {
   return (
     <button
@@ -23,6 +25,7 @@ export const Button: FC<ButtonProps> = ({
         width,
         padding,
       }}
+      onClick={onClick}
     >
       {children}
     </button>

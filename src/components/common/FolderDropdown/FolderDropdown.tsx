@@ -37,7 +37,10 @@ export const FolderDropdown: FC<FolderDropdownProps> = ({ folders }) => {
         </div>
 
         {showNewFolderDialog && showDropdown ? (
-          <NewFolderDialog onReturn={() => setShowNewFolderDialog(false)} />
+          <NewFolderDialog
+            onReturn={() => setShowNewFolderDialog(false)}
+            onFolderCreation={() => setShowNewFolderDialog(false)}
+          />
         ) : (
           <>
             <ul className={`folders-list ${showDropdown && 'active'}`}>
