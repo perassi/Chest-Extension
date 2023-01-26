@@ -13,25 +13,29 @@ interface FolderDropdownProps {
 }
 
 export const FolderDropdown: FC<FolderDropdownProps> = ({ folders }) => {
-  const [folderName, setFodlerName] = useState<string>('')
+  const [activeFolder, setActiveFodler] = useState<FolderType>({} as FolderType)
   const [showDropdown, setShowDropdown] = useState<boolean>(false)
   const [showNewFolderDialog, setShowNewFolderDialog] = useState<boolean>(false)
 
   return (
     <>
       <div className="folder-dropdown-container">
-        <div className="folder-dropdown">
-          <input
+        <div
+          className="folder-dropdown"
+          onClick={() => setShowDropdown((prev) => !prev)}
+        >
+          <div className="folder-dropdown-select">
+            <p>{activeFolder.name ? activeFolder.name : 'Add folder'}</p>
+          </div>
+          {/* <input
+            disabled
             type="text"
             value={folderName}
             placeholder={'Add to folder'}
             onChange={(e) => setFodlerName(e.target.value)}
             onSelect={() => setShowDropdown(true)}
-          />
-          <div
-            className={`toggle-dropdown-icon ${showDropdown && 'show'}`}
-            onClick={() => setShowDropdown((prev) => !prev)}
-          >
+          /> */}
+          <div className={`toggle-dropdown-icon ${showDropdown && 'show'}`}>
             <ArrowSelectIcon />
           </div>
         </div>
@@ -62,7 +66,9 @@ export const FolderDropdown: FC<FolderDropdownProps> = ({ folders }) => {
                 <FolderDropdownItem
                   key={`Parent folder ${index}`}
                   folder={parentFolder}
+                  activeFolder={activeFolder}
                   addNewFolder={true}
+                  onSelect={(curFolder) => setActiveFodler(curFolder)}
                 />
               ))}
             </ul>

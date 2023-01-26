@@ -10,14 +10,18 @@ import { PlusIcon } from '../../icons/PlusIcon'
 
 interface FolderDropdownItemProps {
   folder: FolderType
+  activeFolder: FolderType
   addNewFolder: boolean
   parentFolderName?: string
+  onSelect: (name: FolderType) => void
 }
 
 export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
   folder,
+  activeFolder,
   addNewFolder,
   parentFolderName,
+  onSelect,
 }) => {
   const [showChildren, setShowChildren] = useState<boolean>(false)
   const [showAddNewSubFodler, setShowAddNewSubFodler] = useState<boolean>(false)
@@ -26,15 +30,22 @@ export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
     if (!showChildren && showAddNewSubFodler) setShowAddNewSubFodler(false)
   }, [showChildren])
 
+  const handleFolderClick = () => {
+    if (folder.children.length > 0) {
+      setShowChildren((prev) => !prev)
+    } else {
+      onSelect(folder)
+    }
+  }
+
   return (
     <>
-      <li className="folders-list-item">
-        <div
-          className="folders-list-item-content"
-          onClick={() =>
-            folder.children.length > 0 && setShowChildren((prev) => !prev)
-          }
-        >
+      <li
+        className={`folders-list-item ${
+          activeFolder.id === folder.id && 'active'
+        }`}
+      >
+        <div className="folders-list-item-content" onClick={handleFolderClick}>
           {folder.children.length > 0 && (
             <div
               className={`folder-list-left-icon ${showChildren && 'active'}`}
@@ -81,9 +92,11 @@ export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
             {folder.children.map((childFolder) => (
               <FolderDropdownItem
                 key={`Child folder of "${folder.name}" - ${childFolder.name}`}
+                activeFolder={activeFolder}
                 folder={childFolder}
                 addNewFolder={false}
                 parentFolderName={folder.name}
+                onSelect={(curFolder) => onSelect(curFolder)}
               />
             ))}
           </div>

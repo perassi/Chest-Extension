@@ -8,7 +8,8 @@ $left-margin-width: calc($gap-btwn-name-icon + $width-left-icon);
   .folder-dropdown {
     position: relative;
 
-    input {
+    input,
+    .folder-dropdown-select {
       width: 100%;
       line-height: 24px;
 
@@ -90,6 +91,10 @@ $left-margin-width: calc($gap-btwn-name-icon + $width-left-icon);
         background-color: #fff4fa;
       }
 
+      &.active {
+        background-color: #fff4fa;
+      }
+
       .folders-list-item-content {
         display: flex;
         flex-direction: row;
@@ -131,7 +136,7 @@ $left-margin-width: calc($gap-btwn-name-icon + $width-left-icon);
 
     font-size: 14px;
 
-    padding: 10px; 
+    padding: 10px;
     margin-right: 9.5px;
 
     &::placeholder {
