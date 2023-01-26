@@ -36,7 +36,7 @@ export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
 
           <p className="folder-name">{parentFolder.name}</p>
 
-          <LockIcon />
+          {parentFolder.private && <LockIcon height={13} width={13} />}
         </div>
         <PlusIcon />
       </li>
