@@ -1,20 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ProductContext } from '../../../contexts/productContext'
 
 import './ProductInfo.scss'
 
-const img_url =
-  'https://content.italic.com/bb74ffa1-eef0-489a-9d74-abc8bcb27e1f.jpeg?ixlib=react-9.5.1-beta.1&q=80&w=1600&auto=format&fit=max'
-
 export const ProductInfo = () => {
+  const { pageParsedData } = useContext(ProductContext)
+
   return (
     <div className="product-info">
-      <img src={img_url} />
+      {pageParsedData.product && (
+        <>
+          <img src={pageParsedData.product.image} />
 
-      <div className="product-info-content">
-        <p className="product-title">Basic hooded sweatshirt in pink</p>
-        <p className="product-link">freepeople.com</p>
-        <p className="product-cost">$52</p>
-      </div>
+          <div className="product-info-content">
+            <p className="product-title">{pageParsedData.product.title}</p>
+            <p className="product-link">{pageParsedData.product.url}</p>
+            <p className="product-cost">${pageParsedData.product.price}</p>
+          </div>
+        </>
+      )}
     </div>
   )
 }
