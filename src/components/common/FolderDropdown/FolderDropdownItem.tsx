@@ -14,6 +14,7 @@ interface FolderDropdownItemProps {
   addNewFolder: boolean
   parentFolderName?: string
   onSelect: (name: FolderType) => void
+  onSubFolderCreateCreationStart?: () => void
 }
 
 export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
@@ -22,6 +23,7 @@ export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
   addNewFolder,
   parentFolderName,
   onSelect,
+  onSubFolderCreateCreationStart = () => {},
 }) => {
   const [showChildren, setShowChildren] = useState<boolean>(false)
   const [showAddNewSubFodler, setShowAddNewSubFodler] = useState<boolean>(false)
@@ -72,6 +74,7 @@ export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
             onClick={() => {
               setShowChildren(true)
               setShowAddNewSubFodler(true)
+              onSubFolderCreateCreationStart()
             }}
           >
             <PlusIcon />
@@ -97,6 +100,9 @@ export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
                 addNewFolder={false}
                 parentFolderName={folder.name}
                 onSelect={(curFolder) => onSelect(curFolder)}
+                onSubFolderCreateCreationStart={() =>
+                  onSubFolderCreateCreationStart()
+                }
               />
             ))}
           </div>

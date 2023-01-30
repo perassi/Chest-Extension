@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 
 import { FolderIcon } from '../../icons/FolderIcon'
 import { LockIcon } from '../../icons/LockIcon'
@@ -11,6 +11,12 @@ interface FolderDropdownNewSubFolderProps {
 export const FolderDropdownNewSubFolder: FC<
   FolderDropdownNewSubFolderProps
 > = ({ parentFolderName, isPrivate }) => {
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [])
+
   return (
     <li className="folders-list-item">
       <div className="folders-list-item-content">
@@ -23,6 +29,7 @@ export const FolderDropdownNewSubFolder: FC<
         </p>
 
         <input
+          ref={inputRef}
           className="input new-subfolder-input"
           type="text"
           placeholder="Untitled"
