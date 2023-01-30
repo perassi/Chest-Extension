@@ -1,20 +1,61 @@
 import React, { FC, useEffect, useRef } from 'react'
+import { FolderType } from '../../../@types/global'
+import { Visibility } from '../../../@types/visibility'
+import firebaseService from '../../../services/firebase.service'
 
 import { FolderIcon } from '../../icons/FolderIcon'
 import { LockIcon } from '../../icons/LockIcon'
 
 interface FolderDropdownNewSubFolderProps {
-  parentFolderName: string
+  parentFolder: FolderType
   isPrivate: boolean
+  onHide: () => void
 }
 
 export const FolderDropdownNewSubFolder: FC<
   FolderDropdownNewSubFolderProps
-> = ({ parentFolderName, isPrivate }) => {
+> = ({ parentFolder, isPrivate, onHide }) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    inputRef.current?.focus();
+    inputRef.current?.focus()
+
+    const handleFolderCreation = () => {
+      if (inputRef.current) {
+        if (inputRef.current.value !== '') {
+          firebaseService.addNewFolder(
+            inputRef.current.value,
+            isPrivate ? Visibility.Private : Visibility.Public,
+            parentFolder.id,
+          )
+        }
+
+        onHide()
+      }
+    }
+
+    const handleInputConfirm = (event: MouseEvent) => {
+      if (
+        inputRef.current &&
+        !inputRef.current.contains(event.target as Node)
+      ) {
+        handleFolderCreation()
+      }
+    }
+
+    const handleEnter = (event: KeyboardEvent) => {
+      if (event.code === 'Enter') {
+        handleFolderCreation()
+      }
+    }
+
+    document.addEventListener('mousedown', handleInputConfirm)
+    document.addEventListener('keypress', handleEnter)
+
+    return () => {
+      document.removeEventListener('mousedown', handleInputConfirm)
+      document.removeEventListener('keypress', handleEnter)
+    }
   }, [])
 
   return (
@@ -23,8 +64,8 @@ export const FolderDropdownNewSubFolder: FC<
         <FolderIcon />
 
         <p className="folder-name">
-          {parentFolderName && (
-            <span className="folder-name-parent">{parentFolderName}/ </span>
+          {parentFolder?.name && (
+            <span className="folder-name-parent">{parentFolder.name}/ </span>
           )}
         </p>
 

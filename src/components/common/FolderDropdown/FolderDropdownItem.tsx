@@ -88,7 +88,8 @@ export const FolderDropdownItem: FC<FolderDropdownItemProps> = ({
             {showAddNewSubFodler && (
               <FolderDropdownNewSubFolder
                 isPrivate={folder.private}
-                parentFolderName={folder.name}
+                parentFolder={folder}
+                onHide={() => setShowAddNewSubFodler(false)}
               />
             )}
 
