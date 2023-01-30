@@ -37,8 +37,6 @@ class FirebaseService {
       parent: parentFolder ? parentFolder : '',
     }
 
-    console.log('New folder', newFodler)
-
     await setDoc(doc(db, 'folders', uniqueId), newFodler)
   }
 }

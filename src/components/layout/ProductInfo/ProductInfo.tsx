@@ -22,7 +22,7 @@ export const ProductInfo = () => {
         </p>
         <p className="product-brand">
           {pageParsedData.product?.brand ??
-            pageParsedData.meta?.url.match(websiteDomainRegex)}
+            pageParsedData.meta?.url?.match(websiteDomainRegex)}
         </p>
         <p className="product-cost">
           {pageParsedData.product?.price

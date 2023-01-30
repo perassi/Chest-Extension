@@ -74,6 +74,7 @@ export const FolderDropdownNewSubFolder: FC<
           className="input new-subfolder-input"
           type="text"
           placeholder="Untitled"
+          maxLength={16}
         />
 
         {isPrivate && <LockIcon height={13} width={13} />}

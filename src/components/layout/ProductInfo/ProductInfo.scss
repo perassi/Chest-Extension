@@ -13,6 +13,12 @@
   }
 
   .product-info-content {
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+
     height: 100%;
     padding: 8px;
     box-sizing: border-box;
@@ -25,6 +31,9 @@
       font-size: 15px;
       font-weight: 600;
       color: #475467;
+
+      text-overflow: ellipsis;
+      overflow: hidden;
 
       margin-bottom: 8px;
     }
