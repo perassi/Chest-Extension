@@ -18,7 +18,7 @@ const App = (): JSX.Element => {
                   func: () => window.__CHESTR__,
                 },
                 ([{ result }]: any) => {
-                  iframeRef.current?.contentWindow?.postMessage(result, '*')
+                  iframeRef.current?.contentWindow?.postMessage(result, WEB_URL + '/extension/popup')
                 },
               ),
             )
