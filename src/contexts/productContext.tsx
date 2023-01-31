@@ -7,11 +7,19 @@ import React, {
 import { getAuth, signInWithCustomToken, UserCredential } from 'firebase/auth'
 import { storage } from '@extend-chrome/storage'
 import { PageDataType } from '../@types/global'
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from 'firebase/firestore'
 
 export const ProductContext = createContext<{
   userCredential: UserCredential
   token: any
   pageParsedData: PageDataType
+  isAlreadySaved: boolean
 }>(null!)
 
 export const ProductContextProvider = (props: PropsWithChildren) => {
@@ -22,6 +30,7 @@ export const ProductContextProvider = (props: PropsWithChildren) => {
   const [userCredential, setUserCredential] = useState<UserCredential>(
     {} as UserCredential,
   )
+  const [isAlreadySaved, setIsAlreadySaved] = useState<boolean>(false)
 
   console.log('token', token)
   console.log('userCredential', userCredential)
@@ -46,13 +55,42 @@ export const ProductContextProvider = (props: PropsWithChildren) => {
         },
         ([{ result }]: any) => {
           console.log('result', result)
+
           return setPageParsedData(result)
         },
       ),
     )
   }, [])
+
+  useEffect(() => {
+    if (userCredential.user && pageParsedData.product) {
+      const q = query(
+        collection(getFirestore(), 'products'),
+        where('userId', '==', userCredential.user.uid),
+      )
+
+      getDocs(q).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          console.log(doc.data().productUrl, pageParsedData.product?.url)
+          console.log(doc.data().productUrl === pageParsedData.product?.url)
+
+          if (
+            doc.data().productUrl == pageParsedData?.product?.url &&
+            !isAlreadySaved
+          ) {
+            console.log('setIsAlreadySaved')
+
+            setIsAlreadySaved(true)
+          }
+        })
+      })
+    }
+  }, [userCredential, pageParsedData])
+
   return (
-    <ProductContext.Provider value={{ pageParsedData, token, userCredential }}>
+    <ProductContext.Provider
+      value={{ pageParsedData, token, userCredential, isAlreadySaved }}
+    >
       {props.children}
     </ProductContext.Provider>
   )

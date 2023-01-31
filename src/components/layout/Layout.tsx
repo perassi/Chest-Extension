@@ -79,7 +79,12 @@ export const Layout = () => {
       ></textarea>
 
       <Button>
-        <div className="btn-content-chest">
+        <div
+          className="btn-content-chest"
+          onClick={() =>
+            window.open('https://chestr.app/profile', '_blank')?.focus()
+          }
+        >
           <p className="btn-content-chest-text">Go to chest</p>
           <LinkExternalIcon />
         </div>
