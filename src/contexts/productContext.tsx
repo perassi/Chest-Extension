@@ -33,8 +33,8 @@ export const ProductContextProvider = (props: PropsWithChildren) => {
   )
   const [isAlreadySaved, setIsAlreadySaved] = useState<boolean>(false)
 
-  console.log('token', token)
-  console.log('userCredential', userCredential)
+  // console.log('token', token)
+  // console.log('userCredential', userCredential)
   console.log('pageParsedData', pageParsedData)
 
   useEffect(() => {
@@ -70,18 +70,24 @@ export const ProductContextProvider = (props: PropsWithChildren) => {
         where('userId', '==', userCredential.user.uid),
       )
 
-      getDocs(q).then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          if (
-            doc.data().productUrl == pageParsedData?.product?.url &&
-            !isAlreadySaved
-          ) {
-            setIsAlreadySaved(true)
-          } else {
+      let isProductExists = false
+      getDocs(q)
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            if (
+              doc.data().productUrl == pageParsedData?.product?.url &&
+              !isAlreadySaved
+            ) {
+              setIsAlreadySaved(true)
+              isProductExists = true
+            }
+          })
+        })
+        .then(() => {
+          if (!isProductExists) {
             firebaseService.addNewProduct(pageParsedData)
           }
         })
-      })
     }
   }, [userCredential, pageParsedData])
 

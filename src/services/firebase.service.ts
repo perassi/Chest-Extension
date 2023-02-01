@@ -2,11 +2,7 @@ import { getAuth } from 'firebase/auth'
 import { doc, getFirestore, setDoc, Timestamp } from 'firebase/firestore'
 import uuid from 'react-uuid'
 import { Visibility } from '../@types/visibility'
-import {
-  FolderType,
-  PageDataType,
-  ProductFirebaseType,
-} from '../@types/global'
+import { FolderType, PageDataType, ProductFirebaseType } from '../@types/global'
 
 export const defaultPublicFolderThumbnail =
   'https://firebasestorage.googleapis.com/v0/b/chestr-app.appspot.com/o/constants%2Fempty-public-folder-default.png?alt=media&token=c3573906-e262-49cd-b4ec-936068680809'
@@ -48,8 +44,8 @@ class FirebaseService {
     const user = getAuth().currentUser
     if (!user) return
 
-    // const db = getFirestore()
-    const { product, meta } = pageData;
+    const db = getFirestore()
+    const { product, meta } = pageData
 
     const uniqueId = uuid()
 
@@ -69,9 +65,9 @@ class FirebaseService {
       note: '',
     }
 
-    console.log(newProduct)
+    console.log('newProduct', newProduct)
 
-    // await setDoc(doc(db, 'products', uniqueId), newProduct)
+    await setDoc(doc(db, 'products', uniqueId), newProduct)
   }
 }
 

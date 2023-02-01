@@ -45,7 +45,7 @@ export const Header = () => {
         )}
         {headerState === HeaderState.AlredySaved && (
           <p className="header-title">
-            Item already<span className="text-color-primary-600">Saved!</span>
+            Item already <span className="text-color-primary-600">Saved!</span>
           </p>
         )}
       </div>
