@@ -1,3 +1,4 @@
+import { Timestamp } from 'firebase/firestore'
 type FolderType = {
   createdAt: any
   updatedAt: any
@@ -20,7 +21,7 @@ type MetaType = {
   title: string
   url: string
 }
-
+/** According to requirements */
 type ProductType = {
   brand: string
   description: string
@@ -31,12 +32,28 @@ type ProductType = {
   url: string
 }
 
+type ProductFirebaseType = {
+  id: string
+  createdAt: Timestamp
+  updatedAt: Timestamp
+  userId: string
+  parent: string | null
+  brand: string
+  description: string | null
+  imageUrl: string
+  price: number | null
+  priceCurrency: string | null
+  title: string | null
+  productUrl: string
+  note: string
+}
+
 type PageDataType = {
   meta: MetaType
   product: ProductType
 }
 
-export { FolderType, PageDataType }
+export { FolderType, PageDataType, ProductFirebaseType, ProductType }
 
 declare global {
   interface Window {

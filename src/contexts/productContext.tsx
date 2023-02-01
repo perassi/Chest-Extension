@@ -14,6 +14,7 @@ import {
   query,
   where,
 } from 'firebase/firestore'
+import firebaseService from '../services/firebase.service'
 
 export const ProductContext = createContext<{
   userCredential: UserCredential
@@ -71,16 +72,13 @@ export const ProductContextProvider = (props: PropsWithChildren) => {
 
       getDocs(q).then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          console.log(doc.data().productUrl, pageParsedData.product?.url)
-          console.log(doc.data().productUrl === pageParsedData.product?.url)
-
           if (
             doc.data().productUrl == pageParsedData?.product?.url &&
             !isAlreadySaved
           ) {
-            console.log('setIsAlreadySaved')
-
             setIsAlreadySaved(true)
+          } else {
+            firebaseService.addNewProduct(pageParsedData)
           }
         })
       })
