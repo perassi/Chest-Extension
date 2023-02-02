@@ -65,7 +65,7 @@ chrome.tabs.onUpdated.addListener(
           files: ['preset.js'],
         })
         .then(([{ result }]: any) => {
-          if (result?.product) {
+          if (result?.product?.url || result?.meta?.url) {
             chrome.action.enable(tabId)
             chrome.action.setBadgeText({
               text: 'Y',

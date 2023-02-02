@@ -64,7 +64,10 @@ export const ProductContextProvider = (props: PropsWithChildren) => {
   }, [])
 
   useEffect(() => {
-    if (userCredential.user && pageParsedData.product) {
+    if (
+      userCredential.user &&
+      (pageParsedData.meta?.url || pageParsedData.product?.url)
+    ) {
       const q = query(
         collection(getFirestore(), 'products'),
         where('userId', '==', userCredential.user.uid),
@@ -74,10 +77,11 @@ export const ProductContextProvider = (props: PropsWithChildren) => {
       getDocs(q)
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            if (
-              doc.data().productUrl == pageParsedData?.product?.url &&
-              !isAlreadySaved
-            ) {
+            const docUrl = doc.data().productUrl
+            const pageUrl =
+              pageParsedData?.product?.url ?? pageParsedData?.meta?.url
+
+            if (docUrl == pageUrl && !isAlreadySaved) {
               setIsAlreadySaved(true)
               isProductExists = true
             }
