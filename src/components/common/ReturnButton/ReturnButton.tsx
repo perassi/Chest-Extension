@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import { ReturnIcon } from '../../icons/ReturnIcon'
 
 import './ReturnButton.scss'
 
-export const ReturnButton = () => {
+interface ReturnButtonProps {
+  onClick: () => void
+  disabled?: boolean
+}
+
+export const ReturnButton: FC<ReturnButtonProps> = ({ onClick, disabled }) => {
   return (
-    <button className='return-btn'>
+    <button className="return-btn" onClick={onClick} disabled={disabled}>
       <ReturnIcon />
     </button>
   )

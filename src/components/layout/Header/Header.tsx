@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ProductContext } from '../../../contexts/productContext'
-import { ReturnButton } from '../../common/ReturnButton/ReturnButton'
 
+import firebaseService from '../../../services/firebase.service'
+
+import { ReturnButton } from '../../common/ReturnButton/ReturnButton'
 import { ChestrIcon } from '../../icons/ChestrIcon'
 
 import './Header.scss'
@@ -10,10 +12,11 @@ enum HeaderState {
   Save,
   AlredySaved,
   SavedAsLink,
+  Deleted,
 }
 
 export const Header = () => {
-  const { pageParsedData, isAlreadySaved } = useContext(ProductContext)
+  const { pageParsedData, product, isAlreadySaved } = useContext(ProductContext)
 
   const [headerState, setHeaderState] = useState<HeaderState>(HeaderState.Save)
 
@@ -29,6 +32,16 @@ export const Header = () => {
       setHeaderState(HeaderState.SavedAsLink)
     }
   }, [pageParsedData, isAlreadySaved])
+
+  const handleUndo = () => {
+    if (product?.id) {
+      firebaseService.deleteProduct(product.id)
+      setHeaderState(HeaderState.Deleted)
+    }
+  }
+
+  console.log('product', product);
+  
 
   return (
     <div className="header">
@@ -48,9 +61,15 @@ export const Header = () => {
             Item already <span className="text-color-primary-600">Saved!</span>
           </p>
         )}
+        {headerState === HeaderState.Deleted && (
+          <p className="header-title">Item deleted</p>
+        )}
       </div>
 
-      <ReturnButton />
+      <ReturnButton
+        onClick={handleUndo}
+        disabled={product?.id ? false : true}
+      />
     </div>
   )
 }

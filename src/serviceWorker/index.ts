@@ -86,6 +86,8 @@ chrome.tabs.onUpdated.addListener(
 
 chrome.runtime.onMessageExternal.addListener(
   (request, sender, sendResponse) => {
+    console.log('request', request)
+
     storage.local.set(request)
   },
 )

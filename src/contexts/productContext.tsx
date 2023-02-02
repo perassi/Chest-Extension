@@ -6,7 +6,7 @@ import React, {
 } from 'react'
 import { getAuth, signInWithCustomToken, UserCredential } from 'firebase/auth'
 import { storage } from '@extend-chrome/storage'
-import { PageDataType } from '../@types/global'
+import { PageDataType, ProductFirebaseType } from '../@types/global'
 import {
   collection,
   getDocs,
@@ -20,6 +20,7 @@ export const ProductContext = createContext<{
   userCredential: UserCredential
   token: any
   pageParsedData: PageDataType
+  product: ProductFirebaseType | null
   isAlreadySaved: boolean
 }>(null!)
 
@@ -31,10 +32,9 @@ export const ProductContextProvider = (props: PropsWithChildren) => {
   const [userCredential, setUserCredential] = useState<UserCredential>(
     {} as UserCredential,
   )
-  const [isAlreadySaved, setIsAlreadySaved] = useState<boolean>(false)
+  const [product, setProduct] = useState<ProductFirebaseType | null>(null)
+  const [isAlreadySaved, setAlreadySaved] = useState<boolean>(false)
 
-  // console.log('token', token)
-  // console.log('userCredential', userCredential)
   console.log('pageParsedData', pageParsedData)
 
   useEffect(() => {
@@ -82,14 +82,19 @@ export const ProductContextProvider = (props: PropsWithChildren) => {
               pageParsedData?.product?.url ?? pageParsedData?.meta?.url
 
             if (docUrl == pageUrl && !isAlreadySaved) {
-              setIsAlreadySaved(true)
               isProductExists = true
+              setAlreadySaved(true)
+              setProduct(doc.data() as ProductFirebaseType)
             }
           })
         })
         .then(() => {
           if (!isProductExists) {
-            firebaseService.addNewProduct(pageParsedData)
+            firebaseService
+              .addNewProduct(pageParsedData)
+              .then((newProduct) =>
+                setProduct(newProduct ?? ({} as ProductFirebaseType)),
+              )
           }
         })
     }
@@ -97,7 +102,7 @@ export const ProductContextProvider = (props: PropsWithChildren) => {
 
   return (
     <ProductContext.Provider
-      value={{ pageParsedData, token, userCredential, isAlreadySaved }}
+      value={{ pageParsedData, token, userCredential, product, isAlreadySaved }}
     >
       {props.children}
     </ProductContext.Provider>

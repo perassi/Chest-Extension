@@ -1,5 +1,11 @@
 import { getAuth } from 'firebase/auth'
-import { doc, getFirestore, setDoc, Timestamp } from 'firebase/firestore'
+import {
+  deleteDoc,
+  doc,
+  getFirestore,
+  setDoc,
+  Timestamp,
+} from 'firebase/firestore'
 import uuid from 'react-uuid'
 import { Visibility } from '../@types/visibility'
 import { FolderType, PageDataType, ProductFirebaseType } from '../@types/global'
@@ -68,6 +74,20 @@ class FirebaseService {
     console.log('newProduct', newProduct)
 
     await setDoc(doc(db, 'products', uniqueId), newProduct)
+
+    return newProduct
+  }
+
+  async deleteProduct(productId: string) {
+    const user = getAuth().currentUser
+    if (!user) return
+
+    const db = getFirestore()
+
+    console.log('delete', productId);
+    
+
+    await deleteDoc(doc(db, 'products', productId))
   }
 }
 
