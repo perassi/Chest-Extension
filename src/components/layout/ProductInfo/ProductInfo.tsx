@@ -14,19 +14,19 @@ export const ProductInfo = () => {
 
   return (
     <div className="product-info">
-      <img src={pageParsedData.product?.image ?? chainImage} />
+      <img src={pageParsedData?.product?.image ?? chainImage} />
 
       <div className="product-info-content">
         <p className="product-title">
-          {pageParsedData.product?.title ?? pageParsedData.meta?.title}
+          {pageParsedData?.product?.title ?? pageParsedData.meta?.title}
         </p>
         <p className="product-brand">
-          {pageParsedData.product?.brand ??
-            pageParsedData.meta?.url?.match(websiteDomainRegex)}
+          {pageParsedData?.product?.brand ??
+            pageParsedData?.meta?.url?.match(websiteDomainRegex)}
         </p>
         <p className="product-cost">
-          {pageParsedData.product?.price
-            ? `$${pageParsedData.product?.price}`
+          {pageParsedData?.product?.price
+            ? `$${pageParsedData?.product?.price}`
             : ''}
         </p>
       </div>
