@@ -36,11 +36,6 @@ const App = (): JSX.Element => {
   }, [iframeRef.current])
 
   return (
-    // <ProductContextProvider>
-    //   <FirebaseContextProvider>
-    //     <Layout />
-    //   </FirebaseContextProvider>
-    // </ProductContextProvider>
     <div>
       <iframe
         ref={iframeRef as React.LegacyRef<HTMLIFrameElement>}

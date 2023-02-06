@@ -8,7 +8,7 @@ import { emptyDir } from 'rollup-plugin-empty-dir'
 import zip from 'rollup-plugin-zip'
 import replace from '@rollup/plugin-replace'
 import styles from "rollup-plugin-styles";
-import typescript from 'rollup-plugin-typescript2'
+import typescript from '@rollup/plugin-typescript'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
