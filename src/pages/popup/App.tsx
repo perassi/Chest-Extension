@@ -45,8 +45,8 @@ const App = (): JSX.Element => {
       <iframe
         ref={iframeRef as React.LegacyRef<HTMLIFrameElement>}
         src={WEB_URL + '/extension/popup'}
-        width={460}
-        height={(460 / 9) * 16}
+        width={341}
+        height={515}
       ></iframe>
     </div>
   )
