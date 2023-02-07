@@ -1,7 +1,5 @@
 import { WEB_URL } from '../config'
 
-console.log('ServiceWorker script')
-
 chrome.action.disable()
 
 chrome.tabs.onUpdated.addListener(

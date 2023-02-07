@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+
 import { WEB_URL } from '../../config'
 
 import './App.css'
@@ -9,7 +10,7 @@ const App = (): JSX.Element => {
   useEffect(() => {
     if (iframeRef.current) {
       window.addEventListener('message', function (e) {
-        if (e.data == 'ready')
+        if (e.data == 'ready') {
           chrome.tabs
             .query({ active: true, currentWindow: true })
             .then(([tab]) =>
@@ -28,7 +29,7 @@ const App = (): JSX.Element => {
                 },
               ),
             )
-        else if (e.data == 'login') {
+        } else if (e.data == 'login') {
           chrome.tabs.create({ url: WEB_URL + '/login' })
         }
       })
