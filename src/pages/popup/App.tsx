@@ -10,27 +10,40 @@ const App = (): JSX.Element => {
   useEffect(() => {
     if (iframeRef.current) {
       window.addEventListener('message', function (e) {
-        if (e.data == 'ready') {
-          chrome.tabs
-            .query({ active: true, currentWindow: true })
-            .then(([tab]) =>
-              chrome.scripting.executeScript(
-                {
-                  target: {
-                    tabId: tab.id!,
+        switch (e.data) {
+          case 'ready':
+            chrome.tabs
+              .query({ active: true, currentWindow: true })
+              .then(([tab]) =>
+                chrome.scripting.executeScript(
+                  {
+                    target: {
+                      tabId: tab.id!,
+                    },
+                    func: () => window.__CHESTR__,
                   },
-                  func: () => window.__CHESTR__,
-                },
-                ([{ result }]: any) => {
-                  iframeRef.current?.contentWindow?.postMessage(
-                    result,
-                    WEB_URL + '/extension/popup',
-                  )
-                },
-              ),
-            )
-        } else if (e.data == 'login') {
-          chrome.tabs.create({ url: WEB_URL + '/login' })
+                  ([{ result }]: any) => {
+                    iframeRef.current?.contentWindow?.postMessage(
+                      result,
+                      WEB_URL + '/extension/popup',
+                    )
+                  },
+                ),
+              )
+            break
+
+          case 'login':
+            chrome.tabs.create({ url: WEB_URL + '/login' })
+            break
+
+          case 'close':
+            chrome.tabs.query({ active: true }, ([tab]) => {
+              // chrome.tabs.update(tab.id!, { highlighted: true })
+              window.close();
+            })
+            break
+          default:
+            break
         }
       })
     }
