@@ -38,7 +38,6 @@ const App = (): JSX.Element => {
 
           case 'close':
             chrome.tabs.query({ active: true }, ([tab]) => {
-              // chrome.tabs.update(tab.id!, { highlighted: true })
               window.close();
             })
             break
