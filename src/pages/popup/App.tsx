@@ -47,7 +47,6 @@ const App = (): JSX.Element => {
       })
     }
   }, [iframeRef.current])
-
   return (
     <div>
       <iframe

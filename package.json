@@ -27,14 +27,11 @@
     "start": "npm run build --- -w"
   },
   "dependencies": {
-    "@chestrapp/presets": "^3.1.0",
-    "@extend-chrome/messages": "^1.2.2",
-    "@extend-chrome/storage": "^1.5.0",
+    "@chestrapp/presets": "^3.1.1",
     "@rollup/plugin-replace": "^5.0.2",
     "@types/firefox-webext-browser": "^109.0.0",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
-    "firebase": "^9.15.0",
     "prettier": "^2.8.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
