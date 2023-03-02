@@ -1,7 +1,7 @@
-export {};
+export {}
 
 declare global {
   interface Window {
-    __CHESTR__: any;
+    __CHESTR__: any
   }
 }

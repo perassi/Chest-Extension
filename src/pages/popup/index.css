@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 341px;
+
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+
+  overflow-x: hidden;
+}
+
+iframe {
+  overflow-x: hidden;
+}
