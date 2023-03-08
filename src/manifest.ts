@@ -1,5 +1,4 @@
 export default {
-  version: "1.0",
   manifest_version: 3,
   name: "Chestr - Universal Shopping Wishlist",
   description: "Save items and track discounts from any online store.",
@@ -49,4 +48,4 @@ export default {
       '\*://localhost/\*',
     ]
   },
-} as chrome.runtime.ManifestV3
+} as Partial<chrome.runtime.ManifestV3>
