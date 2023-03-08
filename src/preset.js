@@ -542,6 +542,7 @@ var amazon = {
         return url.host.includes('amazon');
     },
     preset(window) {
+        var _a;
         try {
             return {
                 title: elementValue(window, '[name="productTitle"]'),
@@ -550,7 +551,7 @@ var amazon = {
                 image: elementValue(window, '[name="productImageUrl"]').replace('._SS75_', ''),
             };
         }
-        catch (_a) {
+        catch (_b) {
             const $parseCurrency = parseFirst_1(elementTextContent(window, [
                 // Main selector (most reliable since it uses data-* selector)
                 "span[data-a-color='price'] span.a-offscreen",
@@ -566,9 +567,9 @@ var amazon = {
             ].join(',')));
             return {
                 title: elementTextContent(window, '#productTitle'),
-                price: $parseCurrency.floatValue,
-                priceCurrency: elementValue(window, 'input[id*="currency"],input[name*="currency"]') || $parseCurrency.currencyCode.toUpperCase(),
-                image: elementAttribute(window, 'src', ["#landingImage", "#imgBlkFront", "#ebooksImgBlkFront"].join(',')),
+                price: $parseCurrency === null || $parseCurrency === void 0 ? void 0 : $parseCurrency.floatValue,
+                priceCurrency: elementValue(window, 'input[id*="currency"],input[name*="currency"]') || ((_a = $parseCurrency === null || $parseCurrency === void 0 ? void 0 : $parseCurrency.currencyCode) === null || _a === void 0 ? void 0 : _a.toUpperCase()),
+                image: elementAttribute(window, 'src', ["#landingImage", "#imgBlkFront", "#ebooksImgBlkFront", "#imgTagWrapperId img"].join(',')),
             };
         }
     },

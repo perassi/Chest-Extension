@@ -1,6 +1,8 @@
 export default {
+  version: "1.0",
   manifest_version: 3,
-  name: 'Chestr - Universal Shopping Wishlist',
+  name: "Chestr - Universal Shopping Wishlist",
+  description: "Save items and track discounts from any online store.",
   background: {
     service_worker: 'serviceWorker.ts',
   },
@@ -16,7 +18,19 @@ export default {
     },
   ],
   action: {
+    default_icon: {
+      "16": "/images/logo.png",
+      "32": "/images/logo.png",
+      "48": "/images/logo.png",
+      "128": "/images/logo.png"
+    },
     default_popup: 'pages/popup/index.html',
+  },
+  icons: {
+    "16": "/images/logo.png",
+    "32": "/images/logo.png",
+    "48": "/images/logo.png",
+    "128": "/images/logo.png"
   },
   host_permissions: [
     'https://*/*',
@@ -31,6 +45,7 @@ export default {
     matches: [
       'https://chestr.com/*',
       'https://chestr.app/*',
+      'https://chestr-staging.com/*',
       '\*://localhost/\*',
     ]
   },
