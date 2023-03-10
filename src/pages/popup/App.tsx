@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import { WEB_URL } from '../../config'
 
@@ -6,9 +6,8 @@ import './App.css'
 
 const App = (): JSX.Element => {
   const iframeRef = useRef<HTMLIFrameElement>()
-  const [data, setData] = useState<any>()
-  const popup_url =
-    WEB_URL + '/extension/popup?extensionId=' + chrome.runtime.id
+  const popup_url = WEB_URL + '/extension/popup?id=' + chrome.runtime.id
+
   useEffect(() => {
     if (iframeRef.current) {
       window.addEventListener('message', function (e) {
@@ -25,7 +24,6 @@ const App = (): JSX.Element => {
                     func: () => window.__CHESTR__,
                   },
                   ([{ result }]: any) => {
-                    setData(result)
                     iframeRef.current?.contentWindow?.postMessage(
                       result,
                       popup_url,
@@ -50,9 +48,11 @@ const App = (): JSX.Element => {
       })
     }
   }, [iframeRef.current])
+
+  console.log(popup_url)
+
   return (
     <div>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
       <iframe
         ref={iframeRef as React.LegacyRef<HTMLIFrameElement>}
         src={popup_url}

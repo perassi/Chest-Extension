@@ -8,9 +8,7 @@ chrome.tabs.onUpdated.addListener(
     changeInfo: chrome.tabs.TabChangeInfo,
     tab: chrome.tabs.Tab,
   ) => {
-
-    if (!tab.url?.startsWith('http'))
-      return
+    if (!tab.url?.startsWith('http')) return
 
     if (changeInfo.status === 'complete') {
       chrome.scripting

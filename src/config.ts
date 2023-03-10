@@ -1,1 +1,1 @@
-export const WEB_URL = 'https://chestr-staging.vercel.app'
+export const WEB_URL = 'https://www.chestr-staging.com/'
