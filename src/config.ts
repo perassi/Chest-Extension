@@ -1,1 +1,1 @@
-export const WEB_URL = 'http://localhost:3000'
+export const WEB_URL = 'https://www.chestr-staging.com/'

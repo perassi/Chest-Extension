@@ -6,6 +6,7 @@ import './App.css'
 
 const App = (): JSX.Element => {
   const iframeRef = useRef<HTMLIFrameElement>()
+  const popup_url = WEB_URL + '/extension/popup?id=' + chrome.runtime.id
 
   useEffect(() => {
     if (iframeRef.current) {
@@ -25,7 +26,7 @@ const App = (): JSX.Element => {
                   ([{ result }]: any) => {
                     iframeRef.current?.contentWindow?.postMessage(
                       result,
-                      WEB_URL + '/extension/popup',
+                      popup_url,
                     )
                   },
                 ),
@@ -38,7 +39,7 @@ const App = (): JSX.Element => {
 
           case 'close':
             chrome.tabs.query({ active: true }, ([tab]) => {
-              window.close();
+              window.close()
             })
             break
           default:
@@ -47,11 +48,14 @@ const App = (): JSX.Element => {
       })
     }
   }, [iframeRef.current])
+
+  console.log(popup_url)
+
   return (
     <div>
       <iframe
         ref={iframeRef as React.LegacyRef<HTMLIFrameElement>}
-        src={WEB_URL + '/extension/popup'}
+        src={popup_url}
         width={341}
         height={515}
       ></iframe>
