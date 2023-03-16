@@ -1,8 +1,8 @@
 {
   "name": "@chestrapp/extension",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "private": true,
-  "description": "Chrome extension boilerplate with TypeScript and React",
+  "description": "Internal testing - Save items and track discounts from any online store.",
   "keywords": [
     "chrome-extension",
     "web-extension",
