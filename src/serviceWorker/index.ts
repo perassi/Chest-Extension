@@ -19,18 +19,26 @@ chrome.tabs.onUpdated.addListener(
           files: ['preset.js'],
         })
         .then(([{ result }]: any) => {
-          if (result?.product?.url || result?.meta?.url) {
-            chrome.action.enable(tabId)
-            chrome.action.setBadgeText({
-              text: 'Y',
-              tabId,
-            })
-          } else {
+          if (!result) {
             chrome.action.disable(tabId)
             chrome.action.setBadgeText({
               text: 'N',
               tabId,
             })
+          } else {
+            if (result?.product?.url || result?.meta?.url) {
+              chrome.action.enable(tabId)
+              chrome.action.setBadgeText({
+                text: 'Y',
+                tabId,
+              })
+            } else {
+              chrome.action.disable(tabId)
+              chrome.action.setBadgeText({
+                text: 'N',
+                tabId,
+              })
+            }
           }
         })
         .catch(console.error)
