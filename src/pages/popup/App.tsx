@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { WEB_URL } from '../../config'
 
@@ -7,6 +7,7 @@ import './App.css'
 const App = (): JSX.Element => {
   const iframeRef = useRef<HTMLIFrameElement>()
   const popup_url = WEB_URL + '/extension/popup?id=' + chrome.runtime.id
+  const [data, setData] = useState(false)
 
   useEffect(() => {
     if (iframeRef.current) {
@@ -27,6 +28,9 @@ const App = (): JSX.Element => {
                     iframeRef.current?.contentWindow?.postMessage(
                       result,
                       popup_url,
+                    )
+                    chrome.management.getSelf().then(
+                      self => self.installType == 'development' && setData(result)
                     )
                   },
                 ),
@@ -59,6 +63,9 @@ const App = (): JSX.Element => {
         width={341}
         height={515}
       ></iframe>
+      {
+        data && <pre>{JSON.stringify(data, null, 2)}</pre>
+      }
     </div>
   )
 }
