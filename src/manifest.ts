@@ -1,6 +1,6 @@
 export default {
   manifest_version: 3,
-  name: "TEST - Chestr - Universal Shopping Wishlist",
+  name: "Chestr - Universal Shopping Wishlist",
   description: "Save items and track discounts from any online store.",
   background: {
     service_worker: 'serviceWorker.ts',
@@ -38,7 +38,6 @@ export default {
   permissions: [
     'scripting',
     'activeTab',
-    'storage'
   ],
   externally_connectable: {
     matches: [

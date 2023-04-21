@@ -1,8 +1,8 @@
 {
   "name": "@chestrapp/extension",
-  "version": "1.0.1",
+  "version": "1.6.63",
   "private": true,
-  "description": "Internal testing - Save items and track discounts from any online store.",
+  "description": "Save items and track discounts from any online store.",
   "keywords": [
     "chrome-extension",
     "web-extension",
