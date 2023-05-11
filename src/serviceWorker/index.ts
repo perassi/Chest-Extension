@@ -1,50 +1,56 @@
 import { WEB_URL } from '../config'
+import debounce from 'lodash.debounce'
 
 chrome.action.disable()
 
-chrome.tabs.onUpdated.addListener(
+const check = debounce(
   (
-    tabId: number,
+    tabId: any,
     changeInfo: chrome.tabs.TabChangeInfo,
     tab: chrome.tabs.Tab,
   ) => {
-    if (!tab.url?.startsWith('http')) return
 
-    if (changeInfo.status === 'complete') {
-      chrome.scripting
-        .executeScript({
-          target: {
-            tabId,
-          },
-          files: ['preset.js'],
-        })
-        .then(([{ result }]: any) => {
-          if (!result) {
-            chrome.action.disable(tabId)
+    const id = tabId?.tabId || tabId
+    if (tab?.url?.startsWith('chrome')) return
+
+    // if (changeInfo.status === 'complete') {
+    chrome.scripting
+      .executeScript({
+        target: {
+          tabId: id,
+        },
+        files: ['preset.js'],
+      })
+      .then(([{ result }]: any) => {
+        if (!result) {
+          chrome.action.disable(id)
+          chrome.action.setBadgeText({
+            text: 'N',
+            tabId: id,
+          })
+        } else {
+          if (result?.product?.url || result?.meta?.url) {
+            chrome.action.enable(id)
             chrome.action.setBadgeText({
-              text: 'N',
-              tabId,
+              text: 'Y',
+              tabId: id,
             })
           } else {
-            if (result?.product?.url || result?.meta?.url) {
-              chrome.action.enable(tabId)
-              chrome.action.setBadgeText({
-                text: 'Y',
-                tabId,
-              })
-            } else {
-              chrome.action.disable(tabId)
-              chrome.action.setBadgeText({
-                text: 'N',
-                tabId,
-              })
-            }
+            chrome.action.disable(id)
+            chrome.action.setBadgeText({
+              text: 'N',
+              tabId: id,
+            })
           }
-        })
-        .catch(console.error)
-    }
+        }
+      })
+      .catch(console.error)
+    // }
   },
+  1000
 )
+
+chrome.tabs.onUpdated.addListener(check)
 
 chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
