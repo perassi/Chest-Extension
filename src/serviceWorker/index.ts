@@ -24,23 +24,23 @@ const check = debounce(
       .then(([{ result }]: any) => {
         if (!result) {
           chrome.action.disable(id)
-          chrome.action.setBadgeText({
-            text: 'N',
-            tabId: id,
-          })
+          // chrome.action.setBadgeText({
+          //   text: 'N',
+          //   tabId: id,
+          // })
         } else {
           if (result?.product?.url || result?.meta?.url) {
             chrome.action.enable(id)
-            chrome.action.setBadgeText({
-              text: 'Y',
-              tabId: id,
-            })
+            // chrome.action.setBadgeText({
+            //   text: 'Y',
+            //   tabId: id,
+            // })
           } else {
             chrome.action.disable(id)
-            chrome.action.setBadgeText({
-              text: 'N',
-              tabId: id,
-            })
+            // chrome.action.setBadgeText({
+            //   text: 'N',
+            //   tabId: id,
+            // })
           }
         }
       })
