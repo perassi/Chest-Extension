@@ -42,9 +42,7 @@ const App = (): JSX.Element => {
             break
 
           case 'close':
-            chrome.tabs.query({ active: true }, ([tab]) => {
-              window.close()
-            })
+            window.close();
             break
           default:
             break
