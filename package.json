@@ -27,7 +27,7 @@
     "start": "npm run build --- -w"
   },
   "dependencies": {
-    "@chestrapp/presets": "^3.1.4",
+    "@chestrapp/presets": "^3.1.12",
     "@rollup/plugin-replace": "^5.0.2",
     "@types/firefox-webext-browser": "^109.0.0",
     "@types/react": "^18.0.26",

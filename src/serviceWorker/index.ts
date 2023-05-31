@@ -1,7 +1,7 @@
 import { WEB_URL } from '../config'
 import debounce from 'lodash.debounce'
 
-chrome.action.disable()
+// chrome.action.disable()
 
 const check = debounce(
   (
@@ -47,7 +47,7 @@ const check = debounce(
       .catch(console.error)
     // }
   },
-  1000
+  500
 )
 
 chrome.tabs.onUpdated.addListener(check)
