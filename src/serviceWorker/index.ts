@@ -56,4 +56,5 @@ chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
     chrome.tabs.create({ url: WEB_URL + '/sign-up' })
   }
+  chrome.runtime.setUninstallURL("https://www.getchestr.com/uninstall");
 })
